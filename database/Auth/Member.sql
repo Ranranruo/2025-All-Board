@@ -1,0 +1,15 @@
+-- CREATE
+CREATE TABLE Member (
+  id           BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '고유번호',
+  username     VARCHAR(20)     NOT NULL UNIQUE COMMENT '이름',
+  email        VARCHAR(20)     NOT NULL COMMENT '이메일',
+  display_name VARCHAR(12)     NOT NULL DEFAULT '유저' COMMENT '닉네임',
+  password     VARCHAR(100)    NOT NULL COMMENT '비밀번호',
+  create_at    DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '생성 시간',
+  update_at    DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '수정 시간',
+  flag         BOOLEAN         NOT NULL DEFAULT FALSE COMMENT '플래그',
+  PRIMARY KEY (id)
+) COMMENT = '회원';
+
+-- DROP
+DROP TABLE IF EXISTS Member;
