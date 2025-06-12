@@ -1,26 +1,39 @@
-# Getting Started
+# 📦 All Board Server
 
-### Reference Documentation
-For further reference, please consider the following sections:
+Spring Boot 기반의 웹 애플리케이션입니다.
 
-* [Official Gradle documentation](https://docs.gradle.org)
-* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/3.5.0/gradle-plugin)
-* [Create an OCI image](https://docs.spring.io/spring-boot/3.5.0/gradle-plugin/packaging-oci-image.html)
-* [Spring Boot DevTools](https://docs.spring.io/spring-boot/3.5.0/reference/using/devtools.html)
-* [Spring Security](https://docs.spring.io/spring-boot/3.5.0/reference/web/spring-security.html)
-* [Spring Data JPA](https://docs.spring.io/spring-boot/3.5.0/reference/data/sql.html#data.sql.jpa-and-spring-data)
-* [Spring REST Docs](https://docs.spring.io/spring-restdocs/docs/current/reference/htmlsingle/)
+---
 
-### Guides
-The following guides illustrate how to use some features concretely:
+## 🔧 Skills
 
-* [Securing a Web Application](https://spring.io/guides/gs/securing-web/)
-* [Spring Boot and OAuth2](https://spring.io/guides/tutorials/spring-boot-oauth2/)
-* [Authenticating a User with LDAP](https://spring.io/guides/gs/authenticating-ldap/)
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
+- **Jdk**: 24
+- **Framework**: Spring Boot 3.5.0
+- **Build Tool**: Gradle
+- **Database**: MariaDB
+- **ORM**: Spring Data JPA (Hibernate)
+- **Docs**: RESTDocs
+- **Socket**: WebSocketAPI
+- **Test**: Junit
+- **Others**: Lombok 
 
-### Additional Links
-These additional references should also help you:
+---
 
-* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
+## 📁 Folder Structure
+```
+src/
+├── main/
+│   ├── java/
+│   │   └── sms/
+│   │       └── allBoard/
+│   │           └── AllBoardApplication.java
+│   └── resources/
+│       └── application.properties
+└── test/
 
+```
+
+---
+
+## 🛠️ History
+
+- **2025-06-12**: create project
