@@ -36,4 +36,4 @@ src/
 
 ## 🛠️ History
 
-- **2025-06-12**: create project
+- **2025-06-12**: `create project, db connection`
