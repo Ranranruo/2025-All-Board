@@ -25,7 +25,27 @@ src/
 │   ├── java/
 │   │   └── sms/
 │   │       └── allBoard/
-│   │           └── AllBoardApplication.java
+│   │           ├── AllBoardApplication.java
+│   │           ├── Auth/
+│   │           │   ├── Details/
+│   │           │   ├── DTO/
+│   │           │   ├── Exception/
+│   │           │   ├── Filter/
+│   │           │   ├── Impl/
+│   │           │   ├── JWT/
+│   │           │   ├── AuthController.java
+│   │           │   ├── AuthExceptionHandler.java
+│   │           │   ├── AuthService.java
+│   │           │   └── AuthValidator.java
+│   │           └── Common/
+│   │               ├── Config/
+│   │               ├── Domain/
+│   │               │   ├── Member/
+│   │               │   ├── MemberRoleBridge/
+│   │               │   └── Role/
+│   │               ├── Enum/
+│   │               ├── Interface/
+│   │               └── Util/
 │   └── resources/
 │       └── application.properties
 └── test/
@@ -42,3 +62,6 @@ src/
 
 - **2025-06-13**
   - `Auth 기능에 필요한 Member, Role, MemberRoleBridge 기본적인 Domain 구현`
+  - `예전 프로젝트 참고해서 기본적인 로그인 및 회원가입 기능 조금 구현`
+  - `하야할것: 이메일 인증 기능, refresh token rotation, redis auto delete, flag filter 등등...`
+  - `폴더구조가 엄청나게 복잡해졌다.`
