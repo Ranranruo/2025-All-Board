@@ -3,7 +3,7 @@ CREATE TABLE Member_Log (
     id           BIGINT UNSIGNED AUTO_INCREMENT COMMENT '고유번호',
     member_id    BIGINT UNSIGNED NOT NULL COMMENT '회원 고유번호',
     actor_id     BIGINT UNSIGNED NOT NULL COMMENT '행위자 고유번호',
-    action       ENUM('INSERT', 'UPDATE') NOT NULL COMMENT '수행된 동작',
+    action       ENUM('INSERT', 'UPDATE', 'DELETE') NOT NULL COMMENT '수행된 동작',
     create_at    DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '생성 시간',
     before_data  JSON COMMENT '변경 전 데이터',
     after_data   JSON COMMENT '변경 후 데이터',
