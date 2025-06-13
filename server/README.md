@@ -36,4 +36,9 @@ src/
 
 ## 🛠️ History
 
-- **2025-06-12**: `create project, db connection`
+### 2025-06
+- **2025-06-12**
+  - `create project, db connection`
+
+- **2025-06-13**
+  - `Auth 기능에 필요한 Member, Role, MemberRoleBridge 기본적인 Domain 구현`
