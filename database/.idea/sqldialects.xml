@@ -4,5 +4,6 @@
     <file url="file://$PROJECT_DIR$/Auth/Member.sql" dialect="MariaDB" />
     <file url="file://$PROJECT_DIR$/Auth/Member_Log.sql" dialect="MariaDB" />
     <file url="file://$PROJECT_DIR$/Auth/Member_Role_Bridge.sql" dialect="MariaDB" />
+    <file url="file://$PROJECT_DIR$/Auth/Role.sql" dialect="MariaDB" />
   </component>
 </project>
