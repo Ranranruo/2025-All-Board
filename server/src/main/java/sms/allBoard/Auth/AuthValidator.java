@@ -43,7 +43,8 @@ public class AuthValidator {
     }
 
     private FieldStatus validateEmail(String email) {
-        if(email != null && !email.matches(this.EMAIL_REGEX)) return FieldStatus.INVALID;
+        if(email == null || email.isBlank()) return FieldStatus.EMPTY;
+        if(!email.matches(this.EMAIL_REGEX)) return FieldStatus.INVALID;
         return FieldStatus.SUCCESS;
     }
 

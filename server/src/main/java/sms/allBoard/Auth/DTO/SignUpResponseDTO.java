@@ -10,5 +10,5 @@ public class SignUpResponseDTO {
     private FieldStatus displayName;
     private FieldStatus password;
     private FieldStatus email;
-
+    private FieldStatus verificationCode;
 }

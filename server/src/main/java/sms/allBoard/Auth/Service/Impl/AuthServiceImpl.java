@@ -1,13 +1,13 @@
-package sms.allBoard.Auth.Impl;
+package sms.allBoard.Auth.Service.Impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sms.allBoard.Auth.AuthService;
 import sms.allBoard.Auth.DTO.SignUpRequestDTO;
 import sms.allBoard.Auth.DTO.SignUpResponseDTO;
 import sms.allBoard.Auth.Exception.SignUpException;
+import sms.allBoard.Auth.Service.AuthService;
 import sms.allBoard.Common.Domain.Member.Member;
 import sms.allBoard.Common.Domain.Member.MemberRepository;
 import sms.allBoard.Common.Domain.MemberRoleBridge.MemberRoleBridge;
@@ -19,7 +19,7 @@ import sms.allBoard.Common.Enum.FieldStatus;
 
 @Service
 @RequiredArgsConstructor
-public class AuthServiceImplV1 implements AuthService {
+public class AuthServiceImpl implements AuthService {
     private final MemberRepository memberRepository;
     private final RoleRepository roleRepository;
     private final MemberRoleBridgeRepository memberRoleBridgeRepository;
@@ -27,7 +27,7 @@ public class AuthServiceImplV1 implements AuthService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public boolean signUp(SignUpRequestDTO signUpRequestDTO) {
+    public void signUp(SignUpRequestDTO signUpRequestDTO) {
         boolean isUsernameTaken = memberRepository.existsMemberByUsername(signUpRequestDTO.getUsername());
         boolean isEmailTaken = memberRepository.existsMemberByEmail(signUpRequestDTO.getEmail());
 
@@ -61,6 +61,7 @@ public class AuthServiceImplV1 implements AuthService {
                 .build();
 
         memberRoleBridgeRepository.save(memberRoleBridge);
-        return true;
     }
+
+
 }

@@ -13,4 +13,5 @@ public class SignUpRequestDTO {
     private String displayName;
     private String password;
     private String email;
+    private String verificationCode;
 }
