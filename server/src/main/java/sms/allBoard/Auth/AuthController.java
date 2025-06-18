@@ -18,7 +18,6 @@ import sms.allBoard.Auth.Service.VerificationService;
 import sms.allBoard.Common.Enum.ResponseStatus;
 import sms.allBoard.Common.Enum.FieldStatus;
 import sms.allBoard.Common.Util.ApiResponse;
-import sms.allBoard.Common.Util.Mail.MailService;
 
 @RestController
 @RequiredArgsConstructor

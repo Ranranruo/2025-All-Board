@@ -1,23 +1,24 @@
-package sms.allBoard.Auth.JWT;
+package sms.allBoard.Auth.Service.Impl;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import sms.allBoard.Auth.Service.JwtService;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.Date;
 
 @Component
-public class JWTProvider {
+public class JwtServiceImpl implements JwtService {
     private final int ACCESS_TIMEOUT = 1000 * 60 * 10;
     private final int REFRESH_TIMEOUT = 1000 * 60 * 60 * 24 * 7;
     private final SecretKey secret;
 
-    public JWTProvider(@Value("${spring.jwt.secret}") String secret) {
+    public JwtServiceImpl(@Value("${spring.jwt.secret}") String secret) {
         this.secret = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
     }
 

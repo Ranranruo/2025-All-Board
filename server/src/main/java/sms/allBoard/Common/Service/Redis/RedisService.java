@@ -1,4 +1,4 @@
-package sms.allBoard.Common.Util.Redis;
+package sms.allBoard.Common.Service.Redis;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;

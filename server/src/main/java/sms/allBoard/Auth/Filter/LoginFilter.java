@@ -15,11 +15,11 @@ import sms.allBoard.Auth.AuthValidator;
 import sms.allBoard.Auth.DTO.SignInRequestDTO;
 import sms.allBoard.Auth.DTO.SignInResponseDTO;
 import sms.allBoard.Auth.Details.MemberDetails;
-import sms.allBoard.Auth.JWT.JWTProvider;
+import sms.allBoard.Auth.Service.JwtService;
 import sms.allBoard.Common.Enum.ResponseStatus;
 import sms.allBoard.Common.Enum.FieldStatus;
 import sms.allBoard.Common.Util.ApiResponse;
-import sms.allBoard.Common.Util.Redis.RedisService;
+import sms.allBoard.Common.Service.Redis.RedisService;
 
 import java.io.IOException;
 import java.util.Map;
@@ -28,15 +28,15 @@ import java.util.UUID;
 
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private final JWTProvider jwtProvider;
+    private final JwtService jwtService;
     private final AuthValidator authValidator;
     private final RedisService redisService;
 
-    public LoginFilter(AuthenticationManager authenticationManager, JWTProvider jwtProvider, AuthValidator authValidator, RedisService redisService) {
+    public LoginFilter(AuthenticationManager authenticationManager, JwtService jwtService, AuthValidator authValidator, RedisService redisService) {
         setAuthenticationManager(authenticationManager);
         setFilterProcessesUrl("/sign-in");
 
-        this.jwtProvider = jwtProvider;
+        this.jwtService = jwtService;
         this.redisService = redisService;
         this.authValidator = authValidator;
     }
@@ -67,8 +67,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         MemberDetails member = (MemberDetails) auth.getPrincipal();
 
-        String refreshToken = jwtProvider.generateRefreshToken(member.getUsername());
-        String accessToken = jwtProvider.generateAccessToken(member.getUsername());
+        String refreshToken = jwtService.generateRefreshToken(member.getUsername());
+        String accessToken = jwtService.generateAccessToken(member.getUsername());
         String refreshUUID = UUID.randomUUID().toString();
 
         redisService.set(refreshUUID, refreshToken);

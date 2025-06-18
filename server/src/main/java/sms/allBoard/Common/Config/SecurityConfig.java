@@ -16,15 +16,15 @@ import sms.allBoard.Auth.AuthValidator;
 import sms.allBoard.Auth.Details.MemberDetailsService;
 import sms.allBoard.Auth.Filter.JWTFilter;
 import sms.allBoard.Auth.Filter.LoginFilter;
-import sms.allBoard.Auth.JWT.JWTProvider;
-import sms.allBoard.Common.Util.Redis.RedisService;
+import sms.allBoard.Auth.Service.JwtService;
+import sms.allBoard.Common.Service.Redis.RedisService;
 
 @EnableWebSecurity
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final AuthenticationConfiguration authenticationConfiguration;
-    private final JWTProvider jwtProvider;
+    private final JwtService jwtService;
     private final AuthValidator authValidator;
     private final RedisService redisService;
     private final MemberDetailsService memberDetailsService;
@@ -40,8 +40,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll()
                 )
-                .addFilterAt(new LoginFilter(authenticationConfiguration.getAuthenticationManager(), this.jwtProvider, authValidator, redisService), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(new JWTFilter(this.jwtProvider, this.memberDetailsService), LoginFilter.class)
+                .addFilterAt(new LoginFilter(authenticationConfiguration.getAuthenticationManager(), this.jwtService, authValidator, redisService), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JWTFilter(this.jwtService, this.memberDetailsService), LoginFilter.class)
                 .build();
     }
 
