@@ -7,16 +7,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import sms.allBoard.Auth.DTO.SignUpRequestDTO;
-import sms.allBoard.Auth.DTO.SignUpResponseDTO;
-import sms.allBoard.Auth.DTO.VerificationRequestDTO;
-import sms.allBoard.Auth.DTO.VerificationResponseDTO;
+import sms.allBoard.Auth.DTO.*;
 import sms.allBoard.Auth.Exception.SignUpException;
 import sms.allBoard.Auth.Exception.VerificationException;
 import sms.allBoard.Auth.Service.AuthService;
-import sms.allBoard.Auth.Service.VerificationService;
 import sms.allBoard.Common.Enum.ResponseStatus;
 import sms.allBoard.Common.Enum.FieldStatus;
+import sms.allBoard.Common.Service.Verification.Identifier.EmailIdentifier;
+import sms.allBoard.Common.Service.Verification.Identifier.Identifier;
+import sms.allBoard.Common.Service.Verification.Info.EmailVerificationInfo;
+import sms.allBoard.Common.Service.Verification.Info.VerificationInfo;
+import sms.allBoard.Common.Service.Verification.VerificationService;
 import sms.allBoard.Common.Util.ApiResponse;
 
 @RestController
@@ -25,15 +26,43 @@ public class AuthController {
     private final AuthService authService;
     private final VerificationService verificationService;
     private final AuthValidator authValidator;
-    private final MailService mailService;
 
     @PostMapping("/sign-up")
     public ResponseEntity<ApiResponse<SignUpResponseDTO>> signUp(
             @RequestBody(required = false) SignUpRequestDTO requestBody
     ) {
-        SignUpResponseDTO responseBody = authValidator.validateSignUpRequest(requestBody != null ? requestBody : new SignUpRequestDTO());
+        // response
+        SignUpResponseDTO responseBody = new SignUpResponseDTO();
 
-        responseBody.setVerificationCode(verificationService.verifyVerificationCode(requestBody.getEmail(), requestBody.getVerificationCode()));
+        // null check
+        if(requestBody == null) {
+            responseBody.setDisplayName(FieldStatus.EMPTY);
+            responseBody.setUsername(FieldStatus.EMPTY);
+            responseBody.setPassword(FieldStatus.EMPTY);
+            responseBody.setEmail(FieldStatus.EMPTY);
+            throw new SignUpException(ResponseStatus.BAD_REQUEST, responseBody);
+        }
+
+        responseBody = authValidator.validateSignUpRequest(requestBody, responseBody);
+
+
+
+        // check exists
+        boolean isExistsUsername = authService.isExistsUsername(requestBody.getUsername());
+        boolean isExistsEmail = authService.isExistsEmail(requestBody.getEmail());
+
+        boolean isExists = false;
+        if(isExistsUsername) {
+            responseBody.setUsername(FieldStatus.EXISTS);
+            isExists = true;
+        } if (isExistsEmail) {
+            responseBody.setEmail(FieldStatus.EXISTS);
+            isExists = true;
+        } if (isExists) {
+            responseStatus = ResponseStatus.EXISTS;
+        }
+
+        authValidator.validateSignUpRequest(requestBody);
 
         boolean isValidUsername = responseBody.getUsername().equals(FieldStatus.SUCCESS);
         boolean isValidDisplayName = responseBody.getDisplayName().equals(FieldStatus.SUCCESS);
@@ -41,8 +70,25 @@ public class AuthController {
         boolean isValidEmail = responseBody.getEmail().equals(FieldStatus.SUCCESS);
         boolean isValidVerificationCode = responseBody.getVerificationCode().equals(FieldStatus.SUCCESS);
 
-        if (!(isValidUsername && isValidDisplayName && isValidPassword && isValidEmail && isValidVerificationCode)) {
+        if (!(
+                isValidUsername
+                && isValidDisplayName
+                && isValidPassword
+                && isValidEmail
+                && isValidVerificationCode
+        )) {
             throw new SignUpException(ResponseStatus.INVALID, responseBody);
+        }
+
+        boolean isExistsUsername = authService.isExistsUsername(requestBody.getUsername());
+        boolean isExistsEmail = authService.isExistsEmail(requestBody.getEmail());
+
+
+
+
+        if (!isAuthenticated) {
+            responseBody.setVerificationCode(FieldStatus.INVALID);
+            throw new SignUpException(ResponseStatus.VERIFICATION_FAILED, responseBody);
         }
 
         authService.signUp(requestBody);
@@ -61,9 +107,9 @@ public class AuthController {
             throw new VerificationException(ResponseStatus.INVALID, responseBody);
         }
 
-        String verificationCode = verificationService.generateVerificationCode();
-        verificationService.saveVerificationSession(requestBody.getEmail(), verificationCode);
-        mailService.sendVerifyMail(requestBody.getEmail(), verificationCode);
+
+        Identifier identifier = new EmailIdentifier(requestBody.getEmail());
+         verificationService.send(identifier);
 
         return ResponseEntity.status(ResponseStatus.SUCCESS.getCode()).body(new ApiResponse<>(true, ResponseStatus.SUCCESS, responseBody));
     }

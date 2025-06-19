@@ -26,20 +26,16 @@ public class AuthServiceImpl implements AuthService {
 
     private final PasswordEncoder passwordEncoder;
 
+    public boolean isExistsUsername(String username) {
+        return memberRepository.existsMemberByUsername(username);
+    }
+
+    public boolean isExistsEmail(String email) {
+        return memberRepository.existsMemberByEmail(email);
+    }
+
     @Transactional
     public void signUp(SignUpRequestDTO signUpRequestDTO) {
-        boolean isUsernameTaken = memberRepository.existsMemberByUsername(signUpRequestDTO.getUsername());
-        boolean isEmailTaken = memberRepository.existsMemberByEmail(signUpRequestDTO.getEmail());
-
-        if(isUsernameTaken || isEmailTaken) {
-            SignUpResponseDTO responseBody = new SignUpResponseDTO();
-            responseBody.setUsername(isUsernameTaken ? FieldStatus.EXISTS : FieldStatus.SUCCESS);
-            responseBody.setEmail(isEmailTaken ? FieldStatus.EXISTS : FieldStatus.SUCCESS);
-            responseBody.setDisplayName(FieldStatus.SUCCESS);
-            responseBody.setPassword(FieldStatus.SUCCESS);
-
-            throw new SignUpException(ResponseStatus.EXISTS, responseBody);
-        }
 
         String password = passwordEncoder.encode(signUpRequestDTO.getPassword());
 

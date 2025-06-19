@@ -48,21 +48,20 @@ public class AuthValidator {
         return FieldStatus.SUCCESS;
     }
 
-    public SignUpResponseDTO validateSignUpRequest(SignUpRequestDTO signUpRequestDTO) {
+    public SignUpResponseDTO validateSignUpRequest(SignUpRequestDTO requestBody, SignUpResponseDTO responseBody) {
 
-        SignUpResponseDTO signUpResponseDTO = new SignUpResponseDTO();
+        String username = requestBody.getUsername();
+        String displayName = requestBody.getDisplayName();
+        String password = requestBody.getPassword();
+        String email = requestBody.getEmail();
+        String verificationCode = requestBody.getVerificationCode();
 
-        String username = signUpRequestDTO.getUsername();
-        String displayName = signUpRequestDTO.getDisplayName();
-        String password = signUpRequestDTO.getPassword();
-        String email = signUpRequestDTO.getEmail();
+        responseBody.setUsername(this.validateUsername(username));
+        responseBody.setDisplayName(this.validateDisplayName(displayName));
+        responseBody.setPassword(this.validatePassword(password));
+        responseBody.setEmail(this.validateEmail(email));
 
-        signUpResponseDTO.setUsername(this.validateUsername(username));
-        signUpResponseDTO.setDisplayName(this.validateDisplayName(displayName));
-        signUpResponseDTO.setPassword(this.validatePassword(password));
-        signUpResponseDTO.setEmail(this.validateEmail(email));
-
-        return signUpResponseDTO;
+        return responseBody;
     }
 
     public SignInResponseDTO validateSignInRequest(SignInRequestDTO signInRequestDTO) {

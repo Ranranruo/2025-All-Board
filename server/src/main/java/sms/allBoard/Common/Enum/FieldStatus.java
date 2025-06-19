@@ -11,5 +11,6 @@ public enum FieldStatus {
     TOO_SHORT,
     TOO_LONG,
     INVALID,
-    NOT_FOUND
+    NOT_FOUND,
+    VERIFICATION_FAILED,
 }
