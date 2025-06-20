@@ -10,6 +10,6 @@ public final class EmailVerificationGenerator implements VerificationGenerator {
     private final RandomStringGenerator randomStringGenerator;
     @Override
     public String generate() {
-        return randomStringGenerator.generate(6, true, true, true);
+        return randomStringGenerator.generate(6, true, true, false);
     }
 }

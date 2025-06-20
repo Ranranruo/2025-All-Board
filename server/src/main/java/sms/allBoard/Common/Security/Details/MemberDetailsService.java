@@ -1,4 +1,4 @@
-package sms.allBoard.Auth.Details;
+package sms.allBoard.Common.Security.Details;
 
 
 import lombok.RequiredArgsConstructor;

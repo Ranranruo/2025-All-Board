@@ -1,4 +1,4 @@
-package sms.allBoard.Auth.Filter;
+package sms.allBoard.Common.Security.Filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
@@ -14,12 +14,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import sms.allBoard.Auth.AuthValidator;
 import sms.allBoard.Auth.DTO.SignInRequestDTO;
 import sms.allBoard.Auth.DTO.SignInResponseDTO;
-import sms.allBoard.Auth.Details.MemberDetails;
-import sms.allBoard.Auth.Service.JwtService;
+import sms.allBoard.Common.Security.Details.MemberDetails;
 import sms.allBoard.Common.Enum.ResponseStatus;
 import sms.allBoard.Common.Enum.FieldStatus;
 import sms.allBoard.Common.Util.ApiResponse;
-import sms.allBoard.Common.Service.Redis.RedisService;
+import sms.allBoard.Common.Util.JwtUtil;
+import sms.allBoard.Common.Util.RedisService;
 
 import java.io.IOException;
 import java.util.Map;
@@ -28,15 +28,15 @@ import java.util.UUID;
 
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private final JwtService jwtService;
+    private final JwtUtil jwtUtil;
     private final AuthValidator authValidator;
     private final RedisService redisService;
 
-    public LoginFilter(AuthenticationManager authenticationManager, JwtService jwtService, AuthValidator authValidator, RedisService redisService) {
+    public LoginFilter(AuthenticationManager authenticationManager, JwtUtil jwtUtil, AuthValidator authValidator, RedisService redisService) {
         setAuthenticationManager(authenticationManager);
         setFilterProcessesUrl("/sign-in");
 
-        this.jwtService = jwtService;
+        this.jwtUtil = jwtUtil;
         this.redisService = redisService;
         this.authValidator = authValidator;
     }
@@ -67,8 +67,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         MemberDetails member = (MemberDetails) auth.getPrincipal();
 
-        String refreshToken = jwtService.generateRefreshToken(member.getUsername());
-        String accessToken = jwtService.generateAccessToken(member.getUsername());
+        String refreshToken = jwtUtil.generateRefreshToken(member.getUsername());
+        String accessToken = jwtUtil.generateAccessToken(member.getUsername());
         String refreshUUID = UUID.randomUUID().toString();
 
         redisService.set(refreshUUID, refreshToken);

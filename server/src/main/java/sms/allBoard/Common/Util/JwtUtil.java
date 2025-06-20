@@ -1,11 +1,10 @@
-package sms.allBoard.Auth.Service.Impl;
+package sms.allBoard.Common.Util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import sms.allBoard.Auth.Service.JwtService;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -13,12 +12,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 @Component
-public class JwtServiceImpl implements JwtService {
+public class JwtUtil {
     private final int ACCESS_TIMEOUT = 1000 * 60 * 10;
     private final int REFRESH_TIMEOUT = 1000 * 60 * 60 * 24 * 7;
     private final SecretKey secret;
 
-    public JwtServiceImpl(@Value("${spring.jwt.secret}") String secret) {
+    public JwtUtil(@Value("${spring.jwt.secret}") String secret) {
         this.secret = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
     }
 

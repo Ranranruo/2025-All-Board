@@ -1,5 +1,6 @@
 package sms.allBoard.Auth.DTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,14 +13,16 @@ public class SignUpResponseDTO implements ResponseDTO {
     private FieldStatus displayName;
     private FieldStatus password;
     private FieldStatus email;
+    private FieldStatus verificationCode;
 
-    @Override
+    @JsonIgnore
     public boolean isAllSuccess() {
         return (
                 this.username.equals(FieldStatus.SUCCESS)
                 && this.displayName.equals(FieldStatus.SUCCESS)
                 && this.password.equals(FieldStatus.SUCCESS)
                 && this.email.equals(FieldStatus.SUCCESS)
+                && this.verificationCode.equals(FieldStatus.SUCCESS)
         );
     }
 }

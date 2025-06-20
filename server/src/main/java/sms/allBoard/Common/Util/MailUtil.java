@@ -13,7 +13,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class MailService {
+public class MailUtil {
     private final JavaMailSender mailSender;
 
     public void sendText(String to, String subject, String text) {

@@ -47,8 +47,13 @@ public class AuthValidator {
         if(!email.matches(this.EMAIL_REGEX)) return FieldStatus.INVALID;
         return FieldStatus.SUCCESS;
     }
+    private FieldStatus validateVerificationCode(String verificationCode) {
+        if(verificationCode == null || verificationCode.isBlank()) return FieldStatus.EMPTY;
+        return FieldStatus.SUCCESS;
+    }
 
-    public SignUpResponseDTO validateSignUpRequest(SignUpRequestDTO requestBody, SignUpResponseDTO responseBody) {
+    public SignUpResponseDTO validateSignUpRequest(SignUpRequestDTO requestBody) {
+        SignUpResponseDTO responseBody = new SignUpResponseDTO();
 
         String username = requestBody.getUsername();
         String displayName = requestBody.getDisplayName();
@@ -60,6 +65,7 @@ public class AuthValidator {
         responseBody.setDisplayName(this.validateDisplayName(displayName));
         responseBody.setPassword(this.validatePassword(password));
         responseBody.setEmail(this.validateEmail(email));
+        responseBody.setVerificationCode(this.validateVerificationCode(verificationCode));
 
         return responseBody;
     }

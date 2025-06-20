@@ -1,4 +1,4 @@
-package sms.allBoard.Auth.Filter;
+package sms.allBoard.Common.Security.Filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
@@ -9,20 +9,20 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
-import sms.allBoard.Auth.Details.MemberDetailsService;
-import sms.allBoard.Auth.Service.JwtService;
+import sms.allBoard.Common.Security.Details.MemberDetailsService;
 import sms.allBoard.Common.Enum.ResponseStatus;
 import sms.allBoard.Common.Util.ApiResponse;
+import sms.allBoard.Common.Util.JwtUtil;
 
 import java.io.IOException;
 
 public class JWTFilter extends OncePerRequestFilter {
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private final JwtService jwtService;
+    private final JwtUtil jwtUtil;
     private final MemberDetailsService memberDetailsService;
 
-    public JWTFilter(JwtService jwtService, MemberDetailsService memberDetailsService) {
-        this.jwtService = jwtService;
+    public JWTFilter(JwtUtil jwtUtil, MemberDetailsService memberDetailsService) {
+        this.jwtUtil = jwtUtil;
         this.memberDetailsService = memberDetailsService;
     }
 
@@ -36,7 +36,7 @@ public class JWTFilter extends OncePerRequestFilter {
         String accessToken = authorization.substring("Bearer ".length());
 
         try {
-            jwtService.isExpired(accessToken);
+            jwtUtil.isExpired(accessToken);
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setContentType("application/json;charset=UTF-8");
@@ -44,7 +44,7 @@ public class JWTFilter extends OncePerRequestFilter {
             return;
         }
 
-        String username = jwtService.getUsername(accessToken);
+        String username = jwtUtil.getUsername(accessToken);
         UserDetails userDetails = memberDetailsService.loadUserByUsername(username);
 
         SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities()));

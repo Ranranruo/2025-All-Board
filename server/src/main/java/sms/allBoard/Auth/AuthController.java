@@ -31,8 +31,9 @@ public class AuthController {
     public ResponseEntity<ApiResponse<SignUpResponseDTO>> signUp(
             @RequestBody(required = false) SignUpRequestDTO requestBody
     ) {
-        // response
+        // init
         SignUpResponseDTO responseBody = new SignUpResponseDTO();
+        ResponseStatus responseStatus = ResponseStatus.SUCCESS;
 
         // null check
         if(requestBody == null) {
@@ -40,62 +41,59 @@ public class AuthController {
             responseBody.setUsername(FieldStatus.EMPTY);
             responseBody.setPassword(FieldStatus.EMPTY);
             responseBody.setEmail(FieldStatus.EMPTY);
+            responseBody.setVerificationCode(FieldStatus.EMPTY);
             throw new SignUpException(ResponseStatus.BAD_REQUEST, responseBody);
         }
 
-        responseBody = authValidator.validateSignUpRequest(requestBody, responseBody);
+        // validation
+        responseBody = authValidator.validateSignUpRequest(requestBody);
 
-
+        if(!responseBody.isAllSuccess()) {
+            responseStatus = ResponseStatus.INVALID;
+        }
 
         // check exists
-        boolean isExistsUsername = authService.isExistsUsername(requestBody.getUsername());
-        boolean isExistsEmail = authService.isExistsEmail(requestBody.getEmail());
-
         boolean isExists = false;
-        if(isExistsUsername) {
-            responseBody.setUsername(FieldStatus.EXISTS);
-            isExists = true;
-        } if (isExistsEmail) {
-            responseBody.setEmail(FieldStatus.EXISTS);
-            isExists = true;
-        } if (isExists) {
+
+        if(responseBody.getUsername().equals(FieldStatus.SUCCESS)) {
+            boolean isExistsUsername = authService.isExistsUsername(requestBody.getUsername());
+            if(isExistsUsername) {
+                responseBody.setUsername(FieldStatus.EXISTS);
+                isExists = true;
+            }
+        }
+        if(responseBody.getEmail().equals(FieldStatus.SUCCESS)) {
+            boolean isExistsEmail = authService.isExistsEmail(requestBody.getEmail());
+            if (isExistsEmail) {
+                responseBody.setEmail(FieldStatus.EXISTS);
+                isExists = true;
+            }
+        }
+        if (isExists && responseStatus == ResponseStatus.SUCCESS) {
             responseStatus = ResponseStatus.EXISTS;
         }
 
-        authValidator.validateSignUpRequest(requestBody);
-
-        boolean isValidUsername = responseBody.getUsername().equals(FieldStatus.SUCCESS);
-        boolean isValidDisplayName = responseBody.getDisplayName().equals(FieldStatus.SUCCESS);
-        boolean isValidPassword = responseBody.getPassword().equals(FieldStatus.SUCCESS);
-        boolean isValidEmail = responseBody.getEmail().equals(FieldStatus.SUCCESS);
-        boolean isValidVerificationCode = responseBody.getVerificationCode().equals(FieldStatus.SUCCESS);
-
-        if (!(
-                isValidUsername
-                && isValidDisplayName
-                && isValidPassword
-                && isValidEmail
-                && isValidVerificationCode
-        )) {
-            throw new SignUpException(ResponseStatus.INVALID, responseBody);
-        }
-
-        boolean isExistsUsername = authService.isExistsUsername(requestBody.getUsername());
-        boolean isExistsEmail = authService.isExistsEmail(requestBody.getEmail());
-
-
-
-
+        // verification
+        Identifier identifier = new EmailIdentifier(requestBody.getEmail());
+        VerificationInfo verificationInfo = new EmailVerificationInfo(identifier, requestBody.getVerificationCode());
+        boolean isAuthenticated = verificationService.authenticate(verificationInfo);
         if (!isAuthenticated) {
-            responseBody.setVerificationCode(FieldStatus.INVALID);
-            throw new SignUpException(ResponseStatus.VERIFICATION_FAILED, responseBody);
+            responseBody.setVerificationCode(FieldStatus.VERIFICATION_FAILED);
+            if(responseStatus == ResponseStatus.SUCCESS) {
+                responseStatus = ResponseStatus.VERIFICATION_FAILED;
+            }
         }
 
+        if (responseStatus != ResponseStatus.SUCCESS) {
+            throw new SignUpException(responseStatus, responseBody);
+        }
+
+        // sign up
         authService.signUp(requestBody);
 
         return ResponseEntity.status(ResponseStatus.CREATED.getCode()).body(new ApiResponse<>(true, ResponseStatus.CREATED, responseBody));
     }
-    @PostMapping("/verification")
+    @PostMapping("/verification/email")
     public ResponseEntity<ApiResponse<VerificationResponseDTO>> mail(
             @RequestBody(required = false) VerificationRequestDTO requestBody
     ) {
@@ -113,6 +111,7 @@ public class AuthController {
 
         return ResponseEntity.status(ResponseStatus.SUCCESS.getCode()).body(new ApiResponse<>(true, ResponseStatus.SUCCESS, responseBody));
     }
+
     @GetMapping("/test")
     public void test(
             HttpSession session

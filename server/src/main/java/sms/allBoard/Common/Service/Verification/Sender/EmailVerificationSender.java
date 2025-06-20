@@ -4,12 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import sms.allBoard.Common.Service.Verification.Identifier.Identifier;
 import sms.allBoard.Common.Service.Verification.Info.VerificationInfo;
-import sms.allBoard.Common.Util.MailService;
+import sms.allBoard.Common.Util.MailUtil;
 
 @Component("emailVerificationSender")
 @RequiredArgsConstructor
 public final class EmailVerificationSender implements VerificationSender {
-    private final MailService mailService;
+    private final MailUtil mailUtil;
     @Override
     public void send(VerificationInfo info) {
         Identifier identifier = info.getIdentifier();
@@ -17,7 +17,7 @@ public final class EmailVerificationSender implements VerificationSender {
         String code = info.getCode();
         String email = identifier.getValue();
 
-        mailService.sendText(
+        mailUtil.sendText(
                 email,
                 "Verification for sign-up",
                 "your code: " + code

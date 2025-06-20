@@ -11,11 +11,4 @@ import sms.allBoard.Common.Interface.ResponseDTO;
 public class SignInResponseDTO implements ResponseDTO {
     private FieldStatus username;
     private FieldStatus password;
-    @Override
-    public boolean isAllSuccess() {
-        return (
-                this.username.equals(FieldStatus.SUCCESS)
-                && this.password.equals(FieldStatus.SUCCESS)
-        );
-    }
 }
