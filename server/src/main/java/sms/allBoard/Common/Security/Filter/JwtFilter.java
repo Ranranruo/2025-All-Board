@@ -16,12 +16,12 @@ import sms.allBoard.Common.Util.JwtUtil;
 
 import java.io.IOException;
 
-public class JWTFilter extends OncePerRequestFilter {
+public class JwtFilter extends OncePerRequestFilter {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final JwtUtil jwtUtil;
     private final MemberDetailsService memberDetailsService;
 
-    public JWTFilter(JwtUtil jwtUtil, MemberDetailsService memberDetailsService) {
+    public JwtFilter(JwtUtil jwtUtil, MemberDetailsService memberDetailsService) {
         this.jwtUtil = jwtUtil;
         this.memberDetailsService = memberDetailsService;
     }
@@ -38,10 +38,11 @@ public class JWTFilter extends OncePerRequestFilter {
         try {
             jwtUtil.isExpired(accessToken);
         } catch (Exception e) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.setContentType("application/json;charset=UTF-8");
-            objectMapper.writeValue(response.getWriter(), new ApiResponse<String>(false, ResponseStatus.UNAUTHORIZED, null));
-            return;
+//            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//            response.setContentType("application/json;charset=UTF-8");
+//            objectMapper.writeValue(response.getWriter(), new ApiResponse<String>(false, ResponseStatus.UNAUTHORIZED, null));
+            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(null, null));
+            filterChain.doFilter(request, response);
         }
 
         String username = jwtUtil.getUsername(accessToken);

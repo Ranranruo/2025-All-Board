@@ -1,9 +1,9 @@
-package sms.allBoard.Common.Service.Verification.Store;
+package sms.allBoard.Common.Service.Auth.Verification.Store;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import sms.allBoard.Common.Service.Verification.Info.VerificationInfo;
+import sms.allBoard.Common.Service.Auth.Verification.Info.VerificationInfo;
 
 @RequiredArgsConstructor
 @Component("emailVerificationStore")

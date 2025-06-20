@@ -1,8 +1,8 @@
-package sms.allBoard.Common.Service.Verification.Authenticator;
+package sms.allBoard.Common.Service.Auth.Verification.Authenticator;
 
 import org.springframework.stereotype.Component;
-import sms.allBoard.Common.Service.Verification.Identifier.Identifier;
-import sms.allBoard.Common.Service.Verification.Info.VerificationInfo;
+import sms.allBoard.Common.Service.Auth.Verification.Identifier.Identifier;
+import sms.allBoard.Common.Service.Auth.Verification.Info.VerificationInfo;
 
 @Component("emailVerificationAuthenticator")
 public final class EmailVerificationAuthenticator implements VerificationAuthenticator {

@@ -19,7 +19,7 @@ import sms.allBoard.Common.Enum.ResponseStatus;
 import sms.allBoard.Common.Enum.FieldStatus;
 import sms.allBoard.Common.Util.ApiResponse;
 import sms.allBoard.Common.Util.JwtUtil;
-import sms.allBoard.Common.Util.RedisService;
+import sms.allBoard.Common.Util.RedisUtil;
 
 import java.io.IOException;
 import java.util.Map;
@@ -30,14 +30,14 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final JwtUtil jwtUtil;
     private final AuthValidator authValidator;
-    private final RedisService redisService;
+    private final RedisUtil redisUtil;
 
-    public LoginFilter(AuthenticationManager authenticationManager, JwtUtil jwtUtil, AuthValidator authValidator, RedisService redisService) {
+    public LoginFilter(AuthenticationManager authenticationManager, JwtUtil jwtUtil, AuthValidator authValidator, RedisUtil redisUtil) {
         setAuthenticationManager(authenticationManager);
         setFilterProcessesUrl("/sign-in");
 
         this.jwtUtil = jwtUtil;
-        this.redisService = redisService;
+        this.redisUtil = redisUtil;
         this.authValidator = authValidator;
     }
 
@@ -71,13 +71,13 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String accessToken = jwtUtil.generateAccessToken(member.getUsername());
         String refreshUUID = UUID.randomUUID().toString();
 
-        redisService.set(refreshUUID, refreshToken);
+        redisUtil.set(refreshUUID, refreshToken);
 
         Cookie cookie = new Cookie("refresh_token", refreshUUID);
         cookie.setHttpOnly(true);
         cookie.setPath("/");
 
-        System.out.println(redisService.get(refreshUUID));
+        System.out.println(redisUtil.get(refreshUUID));
 
         response.addCookie(cookie);
 

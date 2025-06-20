@@ -79,3 +79,6 @@ src/
   - `회원가입 로직 리펙토링 완료 (정상 동작)`
   - `구현체가 잘 변경되지 않을것 같고 특정 서비스에 종속되지 않은 Service들 Util로 이름 변경 및 Util 파일로 옮기기`
   - `Jwt 관련 로그인 인증 및 인가 공통 디렉토리 안에 Security로 정리`
+  - `redis expire time 지정`
+  - `access token 재발급 및 refresh token rotaion api 구현 완료`
+  - `flag filter 남았다.`

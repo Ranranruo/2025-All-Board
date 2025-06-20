@@ -1,21 +1,16 @@
-package sms.allBoard.Common.Service.Verification.Impl;
+package sms.allBoard.Common.Service.Auth.Verification.Impl;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import sms.allBoard.Common.Service.Verification.Authenticator.EmailVerificationAuthenticator;
-import sms.allBoard.Common.Service.Verification.Authenticator.VerificationAuthenticator;
-import sms.allBoard.Common.Service.Verification.Generator.EmailVerificationGenerator;
-import sms.allBoard.Common.Service.Verification.Generator.VerificationGenerator;
-import sms.allBoard.Common.Service.Verification.Identifier.EmailIdentifier;
-import sms.allBoard.Common.Service.Verification.Identifier.Identifier;
-import sms.allBoard.Common.Service.Verification.Info.EmailVerificationInfo;
-import sms.allBoard.Common.Service.Verification.Info.VerificationInfo;
-import sms.allBoard.Common.Service.Verification.Sender.EmailVerificationSender;
-import sms.allBoard.Common.Service.Verification.Sender.VerificationSender;
-import sms.allBoard.Common.Service.Verification.Store.VerificationStore;
-import sms.allBoard.Common.Service.Verification.VerificationService;
+import sms.allBoard.Common.Service.Auth.Verification.Authenticator.VerificationAuthenticator;
+import sms.allBoard.Common.Service.Auth.Verification.Generator.VerificationGenerator;
+import sms.allBoard.Common.Service.Auth.Verification.Identifier.Identifier;
+import sms.allBoard.Common.Service.Auth.Verification.Info.EmailVerificationInfo;
+import sms.allBoard.Common.Service.Auth.Verification.Info.VerificationInfo;
+import sms.allBoard.Common.Service.Auth.Verification.Sender.VerificationSender;
+import sms.allBoard.Common.Service.Auth.Verification.Store.VerificationStore;
+import sms.allBoard.Common.Service.Auth.Verification.VerificationService;
 
 
 @Service("emailVerificationService")

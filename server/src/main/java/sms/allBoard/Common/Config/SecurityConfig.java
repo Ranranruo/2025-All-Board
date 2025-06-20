@@ -14,10 +14,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfigurationSource;
 import sms.allBoard.Auth.AuthValidator;
 import sms.allBoard.Common.Security.Details.MemberDetailsService;
-import sms.allBoard.Common.Security.Filter.JWTFilter;
+import sms.allBoard.Common.Security.Filter.JwtFilter;
 import sms.allBoard.Common.Security.Filter.LoginFilter;
 import sms.allBoard.Common.Util.JwtUtil;
-import sms.allBoard.Common.Util.RedisService;
+import sms.allBoard.Common.Util.RedisUtil;
 
 @EnableWebSecurity
 @Configuration
@@ -26,7 +26,7 @@ public class SecurityConfig {
     private final AuthenticationConfiguration authenticationConfiguration;
     private final JwtUtil jwtUtil;
     private final AuthValidator authValidator;
-    private final RedisService redisService;
+    private final RedisUtil redisUtil;
     private final MemberDetailsService memberDetailsService;
     private final CorsConfigurationSource corsConfigurationSource;
 
@@ -40,8 +40,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll()
                 )
-                .addFilterAt(new LoginFilter(authenticationConfiguration.getAuthenticationManager(), this.jwtUtil, authValidator, redisService), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(new JWTFilter(this.jwtUtil, this.memberDetailsService), LoginFilter.class)
+                .addFilterAt(new LoginFilter(authenticationConfiguration.getAuthenticationManager(), this.jwtUtil, authValidator, redisUtil), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtFilter(this.jwtUtil, this.memberDetailsService), LoginFilter.class)
                 .build();
     }
 

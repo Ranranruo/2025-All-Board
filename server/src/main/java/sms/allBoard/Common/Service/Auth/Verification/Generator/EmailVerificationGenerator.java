@@ -1,4 +1,4 @@
-package sms.allBoard.Common.Service.Verification.Generator;
+package sms.allBoard.Common.Service.Auth.Verification.Generator;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

@@ -1,24 +1,29 @@
 package sms.allBoard.Auth;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 import sms.allBoard.Auth.DTO.*;
 import sms.allBoard.Auth.Exception.SignUpException;
+import sms.allBoard.Auth.Exception.TokenRefreshException;
 import sms.allBoard.Auth.Exception.VerificationException;
 import sms.allBoard.Auth.Service.AuthService;
 import sms.allBoard.Common.Enum.ResponseStatus;
 import sms.allBoard.Common.Enum.FieldStatus;
-import sms.allBoard.Common.Service.Verification.Identifier.EmailIdentifier;
-import sms.allBoard.Common.Service.Verification.Identifier.Identifier;
-import sms.allBoard.Common.Service.Verification.Info.EmailVerificationInfo;
-import sms.allBoard.Common.Service.Verification.Info.VerificationInfo;
-import sms.allBoard.Common.Service.Verification.VerificationService;
+import sms.allBoard.Common.Security.Details.MemberDetails;
+import sms.allBoard.Common.Service.Auth.Verification.Identifier.EmailIdentifier;
+import sms.allBoard.Common.Service.Auth.Verification.Identifier.Identifier;
+import sms.allBoard.Common.Service.Auth.Verification.Info.EmailVerificationInfo;
+import sms.allBoard.Common.Service.Auth.Verification.Info.VerificationInfo;
+import sms.allBoard.Common.Service.Auth.Verification.VerificationService;
 import sms.allBoard.Common.Util.ApiResponse;
+import sms.allBoard.Common.Util.JwtUtil;
+import sms.allBoard.Common.Util.RedisUtil;
+
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,6 +31,8 @@ public class AuthController {
     private final AuthService authService;
     private final VerificationService verificationService;
     private final AuthValidator authValidator;
+    private final JwtUtil jwtUtil;
+    private final RedisUtil redisUtil;
 
     @PostMapping("/sign-up")
     public ResponseEntity<ApiResponse<SignUpResponseDTO>> signUp(
@@ -91,10 +98,11 @@ public class AuthController {
         // sign up
         authService.signUp(requestBody);
 
+        // success response
         return ResponseEntity.status(ResponseStatus.CREATED.getCode()).body(new ApiResponse<>(true, ResponseStatus.CREATED, responseBody));
     }
     @PostMapping("/verification/email")
-    public ResponseEntity<ApiResponse<VerificationResponseDTO>> mail(
+    public ResponseEntity<ApiResponse<VerificationResponseDTO>> sendVerificationEmail(
             @RequestBody(required = false) VerificationRequestDTO requestBody
     ) {
         VerificationResponseDTO responseBody = authValidator.validateVerificationRequest(requestBody != null ? requestBody : new VerificationRequestDTO());
@@ -112,12 +120,60 @@ public class AuthController {
         return ResponseEntity.status(ResponseStatus.SUCCESS.getCode()).body(new ApiResponse<>(true, ResponseStatus.SUCCESS, responseBody));
     }
 
-    @GetMapping("/test")
-    public void test(
-            HttpSession session
+    @PostMapping("/token/refresh")
+    public ResponseEntity<ApiResponse<Object>> refreshToken(
+            @CookieValue(value = "refresh_token", defaultValue = "") String oldRefreshKey
     ) {
-        System.out.println(session.getAttribute("verificationEmail"));
-        System.out.println(session.getAttribute("verificationCode"));
+        if (oldRefreshKey == null) {
+            throw new TokenRefreshException(ResponseStatus.UNAUTHORIZED);
+        }
+
+        String oldRefreshToken = redisUtil.get(oldRefreshKey);
+        String username = jwtUtil.getUsername(oldRefreshToken);
+
+        String newRefreshToken = jwtUtil.generateRefreshToken(username);
+        String newRefreshKey = UUID.randomUUID().toString();
+
+        redisUtil.delete(oldRefreshKey);
+        redisUtil.set(newRefreshKey, newRefreshToken);
+
+        ResponseCookie cookie = ResponseCookie.from("refresh_token", newRefreshKey)
+                .httpOnly(true)
+                .path("/")
+                .maxAge(7 * 24 * 60 * 60)
+                .build();
+
+        return ResponseEntity
+                .status(ResponseStatus.SUCCESS.getCode())
+                .header(HttpHeaders.SET_COOKIE, cookie.toString())
+                .body(new ApiResponse<>(true, ResponseStatus.SUCCESS, null));
+
+    }
+
+    @PostMapping("/token/access")
+    public ResponseEntity<ApiResponse<Object>> accessToken(
+            @CookieValue(value = "refresh_token", defaultValue = "") String refreshToken
+    ) {
+        if(refreshToken == null) {
+            throw new TokenRefreshException(ResponseStatus.UNAUTHORIZED);
+        }
+
+        String oldRefreshToken = redisUtil.get(refreshToken);
+        String username = jwtUtil.getUsername(oldRefreshToken);
+
+        String newAccessToken = jwtUtil.generateAccessToken(username);
+
+        return ResponseEntity
+                .status(ResponseStatus.SUCCESS.getCode())
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + newAccessToken)
+                .body(new ApiResponse<Object>(true, ResponseStatus.SUCCESS, null));
+    }
+
+    @GetMapping("/test")
+    public ResponseEntity<?> test(
+            @AuthenticationPrincipal MemberDetails memberDetails
+            ) {
+        return ResponseEntity.ok(memberDetails);
     }
 }
 

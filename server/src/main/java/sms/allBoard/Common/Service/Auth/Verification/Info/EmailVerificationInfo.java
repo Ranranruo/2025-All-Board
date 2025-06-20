@@ -1,8 +1,8 @@
-package sms.allBoard.Common.Service.Verification.Info;
+package sms.allBoard.Common.Service.Auth.Verification.Info;
 
 import lombok.Getter;
 import lombok.Setter;
-import sms.allBoard.Common.Service.Verification.Identifier.Identifier;
+import sms.allBoard.Common.Service.Auth.Verification.Identifier.Identifier;
 
 @Getter
 @Setter

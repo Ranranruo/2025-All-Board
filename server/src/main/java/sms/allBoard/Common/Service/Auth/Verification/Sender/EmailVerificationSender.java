@@ -1,9 +1,9 @@
-package sms.allBoard.Common.Service.Verification.Sender;
+package sms.allBoard.Common.Service.Auth.Verification.Sender;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import sms.allBoard.Common.Service.Verification.Identifier.Identifier;
-import sms.allBoard.Common.Service.Verification.Info.VerificationInfo;
+import sms.allBoard.Common.Service.Auth.Verification.Identifier.Identifier;
+import sms.allBoard.Common.Service.Auth.Verification.Info.VerificationInfo;
 import sms.allBoard.Common.Util.MailUtil;
 
 @Component("emailVerificationSender")
