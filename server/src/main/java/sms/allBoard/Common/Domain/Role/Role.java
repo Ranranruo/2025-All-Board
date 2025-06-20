@@ -2,6 +2,7 @@ package sms.allBoard.Common.Domain.Role;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
 
 @Entity
 @Table(name = "Role")
@@ -9,6 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@SQLDelete(sql = "UPDATE Member SET deleted_at = CURRENT_TIMESTAMP() WHERE id = ?")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -81,4 +81,4 @@ src/
   - `Jwt 관련 로그인 인증 및 인가 공통 디렉토리 안에 Security로 정리`
   - `redis expire time 지정`
   - `access token 재발급 및 refresh token rotaion api 구현 완료`
-  - `flag filter 남았다.`
+  - `soft delete 구현`

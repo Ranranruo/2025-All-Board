@@ -120,6 +120,25 @@ public class AuthController {
         return ResponseEntity.status(ResponseStatus.SUCCESS.getCode()).body(new ApiResponse<>(true, ResponseStatus.SUCCESS, responseBody));
     }
 
+    @PostMapping("/token/access")
+    public ResponseEntity<ApiResponse<Object>> accessToken(
+            @CookieValue(value = "refresh_token", defaultValue = "") String refreshToken
+    ) {
+        if(refreshToken == null) {
+            throw new TokenRefreshException(ResponseStatus.UNAUTHORIZED);
+        }
+
+        String oldRefreshToken = redisUtil.get(refreshToken);
+        String username = jwtUtil.getUsername(oldRefreshToken);
+
+        String newAccessToken = jwtUtil.generateAccessToken(username);
+
+        return ResponseEntity
+                .status(ResponseStatus.SUCCESS.getCode())
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + newAccessToken)
+                .body(new ApiResponse<Object>(true, ResponseStatus.SUCCESS, null));
+    }
+
     @PostMapping("/token/refresh")
     public ResponseEntity<ApiResponse<Object>> refreshToken(
             @CookieValue(value = "refresh_token", defaultValue = "") String oldRefreshKey
@@ -148,25 +167,6 @@ public class AuthController {
                 .header(HttpHeaders.SET_COOKIE, cookie.toString())
                 .body(new ApiResponse<>(true, ResponseStatus.SUCCESS, null));
 
-    }
-
-    @PostMapping("/token/access")
-    public ResponseEntity<ApiResponse<Object>> accessToken(
-            @CookieValue(value = "refresh_token", defaultValue = "") String refreshToken
-    ) {
-        if(refreshToken == null) {
-            throw new TokenRefreshException(ResponseStatus.UNAUTHORIZED);
-        }
-
-        String oldRefreshToken = redisUtil.get(refreshToken);
-        String username = jwtUtil.getUsername(oldRefreshToken);
-
-        String newAccessToken = jwtUtil.generateAccessToken(username);
-
-        return ResponseEntity
-                .status(ResponseStatus.SUCCESS.getCode())
-                .header(HttpHeaders.AUTHORIZATION, "Bearer " + newAccessToken)
-                .body(new ApiResponse<Object>(true, ResponseStatus.SUCCESS, null));
     }
 
     @GetMapping("/test")

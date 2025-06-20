@@ -2,6 +2,9 @@ package sms.allBoard.Common.Domain.Member;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
@@ -9,6 +12,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@SQLDelete(sql = "UPDATE Member SET deleted_at = CURRENT_TIMESTAMP() WHERE id = ?")
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +30,7 @@ public class Member {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
 }

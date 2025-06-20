@@ -2,6 +2,7 @@ package sms.allBoard.Common.Domain.MemberRoleBridge;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
 
 @Entity
 @Table(name = "Member_Role_bridge")
@@ -9,6 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @Getter @Setter
 @Builder
+@SQLDelete(sql = "UPDATE Member SET deleted_at = CURRENT_TIMESTAMP() WHERE id = ?")
 public class MemberRoleBridge {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
