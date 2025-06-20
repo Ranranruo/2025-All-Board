@@ -30,21 +30,30 @@ public class SecurityConfig {
     private final MemberDetailsService memberDetailsService;
     private final CorsConfigurationSource corsConfigurationSource;
 
+    // security 설정
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
+                // 로그아웃 기능 비활성화
                 .logout(AbstractHttpConfigurer::disable)
+                // 폼 로그인 기능 비활성화
                 .formLogin(AbstractHttpConfigurer::disable)
+                // csrf 비활성화
                 .csrf(AbstractHttpConfigurer::disable)
+                // cors 설정 객체로 설정
                 .cors(cors -> cors.configurationSource(corsConfigurationSource))
+                // 요청별 권한 설정
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll()
                 )
+                // 로그인 필터 UsernamePasswordAuthenticationFilter랑 갈아끼운다.
                 .addFilterAt(new LoginFilter(authenticationConfiguration.getAuthenticationManager(), this.jwtUtil, authValidator, redisUtil), UsernamePasswordAuthenticationFilter.class)
+                // JwtFilter 로그인 필터 바로 뒤에 추가
                 .addFilterBefore(new JwtFilter(this.jwtUtil, this.memberDetailsService), LoginFilter.class)
                 .build();
     }
 
+    // 비밀번호 암호와 알고리즘 BCrypt 사용
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

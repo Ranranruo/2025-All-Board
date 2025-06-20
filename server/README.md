@@ -84,3 +84,4 @@ src/
   - `soft delete 구현`
   - `flag filtering 구현`
   - `soft delte 와 flag filtering은 아쉬운 부분이 있음 나중에 바꿔야 할것같다.`
+  - `어느정도 필요한곳에 주석 추가`

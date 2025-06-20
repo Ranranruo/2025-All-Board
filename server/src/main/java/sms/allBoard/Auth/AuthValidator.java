@@ -13,11 +13,19 @@ public class AuthValidator {
     private final int MIN_PASSWORD_LENGTH = 8;
     private final int MAX_PASSWORD_LENGTH = 16;
 
+    // username은 영문/숫자 조합으로 5~20자
     private final String USERNAME_REGEX = "^[a-zA-Z0-9]{5,20}$";
+
+    // password는 영문/숫자/특수문자(!@#$%^&*()) 포함 8~16자
     private final String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[!@#$%^&*()])[a-zA-Z0-9!@#$%^&*()]{8,16}$";
+
+    // displayName은 한글, 영문, 숫자 조합 2~16자
     private final String DISPLAY_NAME_REGEX = "^[a-zA-Z0-9가-힣]{2,16}$";
+    
+    // RFC 5322 기반의 일반적인 이메일 형식
     private final String EMAIL_REGEX = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
 
+    // username 유효성 검사
     private FieldStatus validateUsername(String username) {
         if(username == null || username.isBlank()) return FieldStatus.EMPTY;
         else if(username.length() < this.MIN_USERNAME_LENGTH) return FieldStatus.TOO_SHORT;
@@ -26,6 +34,7 @@ public class AuthValidator {
         return FieldStatus.SUCCESS;
     }
 
+    // displayName 유효성 검사
     private FieldStatus validateDisplayName(String displayName) {
         if(displayName == null || displayName.isBlank()) return FieldStatus.EMPTY;
         else if(displayName.length() < this.MIN_DISPLAY_NAME_LENGTH) return FieldStatus.TOO_SHORT;
@@ -34,6 +43,7 @@ public class AuthValidator {
         return FieldStatus.SUCCESS;
     }
 
+    // password 유효성 검사
     private FieldStatus validatePassword(String password) {
         if(password == null || password.isBlank()) return FieldStatus.EMPTY;
         else if(password.length() < this.MIN_PASSWORD_LENGTH) return FieldStatus.TOO_SHORT;
@@ -42,16 +52,21 @@ public class AuthValidator {
         return FieldStatus.SUCCESS;
     }
 
+    // email 유효성 검사
     private FieldStatus validateEmail(String email) {
         if(email == null || email.isBlank()) return FieldStatus.EMPTY;
         if(!email.matches(this.EMAIL_REGEX)) return FieldStatus.INVALID;
         return FieldStatus.SUCCESS;
     }
+    
+    // verificationCode 유효성 검사
     private FieldStatus validateVerificationCode(String verificationCode) {
         if(verificationCode == null || verificationCode.isBlank()) return FieldStatus.EMPTY;
         return FieldStatus.SUCCESS;
     }
 
+    // signUpRequest validation
+    // 회원가입 요청 데이터 유효성 검사
     public SignUpResponseDTO validateSignUpRequest(SignUpRequestDTO requestBody) {
         SignUpResponseDTO responseBody = new SignUpResponseDTO();
 
@@ -70,6 +85,9 @@ public class AuthValidator {
         return responseBody;
     }
 
+    
+    // signInRequest validation
+    // 로그인 요청 데이터 유효성 검사
     public SignInResponseDTO validateSignInRequest(SignInRequestDTO signInRequestDTO) {
         SignInResponseDTO signInResponseDTO = new SignInResponseDTO();
 
@@ -82,6 +100,8 @@ public class AuthValidator {
         return signInResponseDTO;
     }
 
+    // verificationRequest validation
+    // 인증 요청 데이터 유효성 검사
     public VerificationResponseDTO validateVerificationRequest(VerificationRequestDTO verificationRequestDTO) {
         VerificationResponseDTO verificationResponseDTO = new VerificationResponseDTO();
 
