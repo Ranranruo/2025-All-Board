@@ -3,6 +3,7 @@ package sms.allBoard.Common.Domain.Member;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDateTime;
 
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @SQLDelete(sql = "UPDATE Member SET deleted_at = CURRENT_TIMESTAMP() WHERE id = ?")
+@SQLRestriction("deleted_at IS NULL")
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

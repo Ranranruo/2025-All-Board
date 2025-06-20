@@ -82,3 +82,5 @@ src/
   - `redis expire time 지정`
   - `access token 재발급 및 refresh token rotaion api 구현 완료`
   - `soft delete 구현`
+  - `flag filtering 구현`
+  - `soft delte 와 flag filtering은 아쉬운 부분이 있음 나중에 바꿔야 할것같다.`
