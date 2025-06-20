@@ -20,36 +20,34 @@ Spring Boot 기반의 웹 애플리케이션입니다.
 
 ## 📁 Folder Structure
 ```
-src/
-├── main/
-│   ├── java/
-│   │   └── sms/
-│   │       └── allBoard/
-│   │           ├── AllBoardApplication.java
-│   │           ├── Auth/
-│   │           │   ├── Details/
-│   │           │   ├── DTO/
-│   │           │   ├── Exception/
-│   │           │   ├── Filter/
-│   │           │   ├── Impl/
-│   │           │   ├── JWT/
-│   │           │   ├── AuthController.java
-│   │           │   ├── AuthExceptionHandler.java
-│   │           │   ├── AuthService.java
-│   │           │   └── AuthValidator.java
-│   │           └── Common/
-│   │               ├── Config/
-│   │               ├── Domain/
-│   │               │   ├── Member/
-│   │               │   ├── MemberRoleBridge/
-│   │               │   └── Role/
-│   │               ├── Enum/
-│   │               ├── Interface/
-│   │               └── Util/
-│   └── resources/
-│       └── application.properties
-└── test/
 
+ main/
+├── java/
+│   └── sms/
+│       └── allBoard/
+│           ├── AllBoardApplication.java
+│           ├── Auth/
+│           │   ├── DTO/
+│           │   ├── Exception/
+│           │   ├── Service/
+│           │   ├── AuthController.java
+│           │   ├── AuthExceptionHandler.java
+│           │   └── AuthValidator.java
+│           └── Common/
+│               ├── Config/
+│               ├── Domain/
+│               │   ├── Member/
+│               │   ├── MemberRoleBridge/
+│               │   └── Role/
+│               ├── Enum/
+│               ├── Interface/
+│               ├── Security/
+│               ├── Service/
+│               │   └── Auth/
+│               │       └── Verification/
+│               └── Util/
+└── resources/
+       └── application.properties
 ```
 
 ---
@@ -85,3 +83,4 @@ src/
   - `flag filtering 구현`
   - `soft delte 와 flag filtering은 아쉬운 부분이 있음 나중에 바꿔야 할것같다.`
   - `어느정도 필요한곳에 주석 추가`
+  - `readme에 folder structure 수정`
