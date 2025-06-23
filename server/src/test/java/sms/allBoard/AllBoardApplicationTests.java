@@ -5,12 +5,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import sms.allBoard.Common.Domain.Member.Member;
-import sms.allBoard.Common.Domain.Member.MemberRepository;
-import sms.allBoard.Common.Util.RedisUtil;
+import sms.allBoard.Common.Domain.Member.Model.Member;
+import sms.allBoard.Common.Domain.Member.Repository.MemberRepository;
+import sms.allBoard.Common.Util.Redis.StringRedisUtil;
 
 import java.util.List;
-import java.util.Optional;
 
 @SpringBootTest
 class AllBoardApplicationTests {
@@ -19,7 +18,7 @@ class AllBoardApplicationTests {
 	@Autowired
     private MemberRepository memberRepository;
     @Autowired
-    private RedisUtil redisUtil;
+    private StringRedisUtil stringRedisUtil;
 
 	@Test
 	void contextLoads() {
@@ -34,11 +33,5 @@ class AllBoardApplicationTests {
 		log.info("true");
 	}
 
-	@Test
-	void test1() {
-		String a = redisUtil.get("asdasda");
-
-		log.info(a);
-	}
 
 }

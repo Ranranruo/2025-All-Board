@@ -5,12 +5,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import sms.allBoard.Auth.DTO.SignInResponseDTO;
-import sms.allBoard.Auth.Exception.SignInException;
-import sms.allBoard.Common.Domain.Member.Member;
-import sms.allBoard.Common.Domain.Member.MemberRepository;
-import sms.allBoard.Common.Domain.Role.Role;
-import sms.allBoard.Common.Domain.Role.RoleRepository;
+import sms.allBoard.App.Auth.DTO.SignInResponseDTO;
+import sms.allBoard.App.Auth.Exception.SignInException;
+import sms.allBoard.Common.Domain.Member.Model.Member;
+import sms.allBoard.Common.Domain.Member.Repository.MemberRepository;
+import sms.allBoard.Common.Domain.Role.Model.Role;
+import sms.allBoard.Common.Domain.Role.Repository.RoleRepository;
 import sms.allBoard.Common.Enum.ResponseStatus;
 import sms.allBoard.Common.Enum.FieldStatus;
 

@@ -84,3 +84,14 @@ Spring Boot 기반의 웹 애플리케이션입니다.
   - `soft delte 와 flag filtering은 아쉬운 부분이 있음 나중에 바꿔야 할것같다.`
   - `어느정도 필요한곳에 주석 추가`
   - `readme에 folder structure 수정`
+
+- **2025-06-23**
+  - `Domain폴더의 구조 변경 각 역할마다 폴더 추가 ex) Service, Repository, Model...`
+  - `모든 Entity 폴더 네이밍 Model로 변경 `
+
+## ✨ Features
+
+- ~~`JavaMailSender를 활용한 이메일 인증 sign-up 기능`~~
+- ~~`jwt와 redis를 활용한 sign-in 기능`~~
+- ~~`socket config`~~
+- `socket으로 방 생성 및 참가 기능`

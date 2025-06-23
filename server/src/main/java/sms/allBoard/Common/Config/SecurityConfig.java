@@ -12,12 +12,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfigurationSource;
-import sms.allBoard.Auth.AuthValidator;
+import sms.allBoard.App.Auth.AuthValidator;
 import sms.allBoard.Common.Security.Details.MemberDetailsService;
 import sms.allBoard.Common.Security.Filter.JwtFilter;
 import sms.allBoard.Common.Security.Filter.LoginFilter;
 import sms.allBoard.Common.Util.JwtUtil;
-import sms.allBoard.Common.Util.RedisUtil;
+import sms.allBoard.Common.Util.Redis.StringRedisUtil;
 
 @EnableWebSecurity
 @Configuration
@@ -26,7 +26,7 @@ public class SecurityConfig {
     private final AuthenticationConfiguration authenticationConfiguration;
     private final JwtUtil jwtUtil;
     private final AuthValidator authValidator;
-    private final RedisUtil redisUtil;
+    private final StringRedisUtil stringRedisUtil;
     private final MemberDetailsService memberDetailsService;
     private final CorsConfigurationSource corsConfigurationSource;
 
@@ -47,7 +47,7 @@ public class SecurityConfig {
                         .anyRequest().permitAll()
                 )
                 // 로그인 필터 UsernamePasswordAuthenticationFilter랑 갈아끼운다.
-                .addFilterAt(new LoginFilter(authenticationConfiguration.getAuthenticationManager(), this.jwtUtil, authValidator, redisUtil), UsernamePasswordAuthenticationFilter.class)
+                .addFilterAt(new LoginFilter(authenticationConfiguration.getAuthenticationManager(), this.jwtUtil, authValidator, stringRedisUtil), UsernamePasswordAuthenticationFilter.class)
                 // JwtFilter 로그인 필터 바로 뒤에 추가
                 .addFilterBefore(new JwtFilter(this.jwtUtil, this.memberDetailsService), LoginFilter.class)
                 .build();

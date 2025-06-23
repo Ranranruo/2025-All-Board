@@ -11,15 +11,15 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import sms.allBoard.Auth.AuthValidator;
-import sms.allBoard.Auth.DTO.SignInRequestDTO;
-import sms.allBoard.Auth.DTO.SignInResponseDTO;
+import sms.allBoard.App.Auth.AuthValidator;
+import sms.allBoard.App.Auth.DTO.SignInRequestDTO;
+import sms.allBoard.App.Auth.DTO.SignInResponseDTO;
 import sms.allBoard.Common.Security.Details.MemberDetails;
 import sms.allBoard.Common.Enum.ResponseStatus;
 import sms.allBoard.Common.Enum.FieldStatus;
 import sms.allBoard.Common.Util.ApiResponse;
 import sms.allBoard.Common.Util.JwtUtil;
-import sms.allBoard.Common.Util.RedisUtil;
+import sms.allBoard.Common.Util.Redis.StringRedisUtil;
 
 import java.io.IOException;
 import java.util.Map;
@@ -30,14 +30,14 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final JwtUtil jwtUtil;
     private final AuthValidator authValidator;
-    private final RedisUtil redisUtil;
+    private final StringRedisUtil stringRedisUtil;
 
-    public LoginFilter(AuthenticationManager authenticationManager, JwtUtil jwtUtil, AuthValidator authValidator, RedisUtil redisUtil) {
+    public LoginFilter(AuthenticationManager authenticationManager, JwtUtil jwtUtil, AuthValidator authValidator, StringRedisUtil stringRedisUtil) {
         setAuthenticationManager(authenticationManager);
         setFilterProcessesUrl("/sign-in");
 
         this.jwtUtil = jwtUtil;
-        this.redisUtil = redisUtil;
+        this.stringRedisUtil = stringRedisUtil;
         this.authValidator = authValidator;
     }
 
@@ -71,13 +71,13 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String accessToken = jwtUtil.generateAccessToken(member.getUsername());
         String refreshUUID = UUID.randomUUID().toString();
 
-        redisUtil.set(refreshUUID, refreshToken);
+        stringRedisUtil.set(refreshUUID, refreshToken);
 
         Cookie cookie = new Cookie("refresh_token", refreshUUID);
         cookie.setHttpOnly(true);
         cookie.setPath("/");
 
-        System.out.println(redisUtil.get(refreshUUID));
+        System.out.println(stringRedisUtil.get(refreshUUID));
 
         response.addCookie(cookie);
 

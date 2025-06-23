@@ -15,7 +15,7 @@ public class CorsConfig {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
 
         // Origin 허용 (예: http://localhost:3000 등)
-        corsConfiguration.addAllowedOrigin("*");
+        corsConfiguration.addAllowedOrigin("http://127.0.0.1:5500");
 
         // 요청 헤더 허용 (예: Authorization, Content-Type 등)
         corsConfiguration.addAllowedHeader("*");
