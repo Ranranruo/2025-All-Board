@@ -94,4 +94,5 @@ Spring Boot 기반의 웹 애플리케이션입니다.
 - ~~`JavaMailSender를 활용한 이메일 인증 sign-up 기능`~~
 - ~~`jwt와 redis를 활용한 sign-in 기능`~~
 - ~~`socket config`~~
+- `msa로 전환`
 - `socket으로 방 생성 및 참가 기능`
