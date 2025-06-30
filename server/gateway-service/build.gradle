@@ -22,12 +22,25 @@ ext {
 }
 
 dependencies {
+	// Env
+	implementation 'io.github.cdimascio:dotenv-java:2.2.0'
+
+	// Actuator
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+	// Gateway
 	implementation 'org.springframework.cloud:spring-cloud-starter-gateway-server-webflux'
-	// WebFlux 런타임 (Gateway가 WebFlux 위에서 동작하도록)
+
+	// WebFlux runtime (Gateway가 WebFlux 위에서 동작하도록)
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+	// Eureka client
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
+	// Boot
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// Test
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
