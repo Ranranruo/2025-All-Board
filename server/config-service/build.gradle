@@ -28,13 +28,24 @@ ext {
 }
 
 dependencies {
+	// Security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	testImplementation 'org.springframework.security:spring-security-test'
+
+	// Config server
 	implementation 'org.springframework.cloud:spring-cloud-config-server'
+
+	// Lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+
+	// Env
 	implementation 'io.github.cdimascio:dotenv-java:2.2.0'
+
+	// Boot
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
+
+	// Test
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
