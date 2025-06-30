@@ -89,6 +89,13 @@ Spring Boot 기반의 웹 애플리케이션입니다.
   - `Domain폴더의 구조 변경 각 역할마다 폴더 추가 ex) Service, Repository, Model...`
   - `모든 Entity 폴더 네이밍 Model로 변경 `
 
+- **2025-06-30**
+  - `Config server init`
+  - `Discovery server init`
+  - `Gateway init`
+  - `Member service init`
+  - `msa 기본 환경 설정 완료`
+
 ## ✨ Features
 
 - ~~`JavaMailSender를 활용한 이메일 인증 sign-up 기능`~~
