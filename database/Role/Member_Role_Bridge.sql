@@ -1,3 +1,6 @@
+-- DROP
+DROP TABLE IF EXISTS Member_Role_Bridge;
+
 -- CREATE
 CREATE TABLE Member_Role_Bridge (
   id          BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '고유번호',
@@ -11,5 +14,3 @@ CREATE TABLE Member_Role_Bridge (
   FOREIGN KEY (role_id) REFERENCES Role(id) ON DELETE CASCADE
 ) COMMENT = '회원 권한 브릿지';
 
--- DROP
-DROP TABLE IF EXISTS Member_Role_Bridge;
