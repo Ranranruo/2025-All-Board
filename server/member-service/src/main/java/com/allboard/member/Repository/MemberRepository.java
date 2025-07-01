@@ -1,4 +1,7 @@
 package com.allboard.member.Repository;
 
-public interface MemberRepository {
+import com.allboard.member.Model.Member;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MemberRepository extends JpaRepository<Member, Long> {
 }
