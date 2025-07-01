@@ -1,5 +1,5 @@
 -- CREATE
-CREATE TABLE Role (
+CREATE TABLE role (
   id          BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '고유번호',
   name        VARCHAR(30)     NOT NULL                COMMENT '이름',
   description TEXT            COMMENT '설명',
@@ -10,4 +10,4 @@ CREATE TABLE Role (
 ) COMMENT = '권한';
 
 -- DROP
-DROP TABLE IF EXISTS Role;
+DROP TABLE IF EXISTS role;

@@ -4,15 +4,15 @@ SET character_set_connection = utf8mb4;
 SET character_set_client = utf8mb4;
 SET character_set_results = utf8mb4;
 
-DROP DATABASE IF EXISTS Member;
+DROP DATABASE IF EXISTS member;
 
-CREATE DATABASE Member;
-USE Member;
+CREATE DATABASE member;
+USE member;
 
-DROP TABLE IF EXISTS Member;
+DROP TABLE IF EXISTS member;
 
 -- CREATE
-CREATE TABLE Member (
+CREATE TABLE member (
   id           BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '고유번호',
   username     VARCHAR(20)     NOT NULL UNIQUE COMMENT '이름',
   email        VARCHAR(50)     NOT NULL COMMENT '이메일',

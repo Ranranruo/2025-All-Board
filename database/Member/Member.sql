@@ -1,5 +1,5 @@
 -- CREATE
-CREATE TABLE Member (
+CREATE TABLE member (
   id           BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '고유번호',
   username     VARCHAR(20)     NOT NULL UNIQUE COMMENT '이름',
   email        VARCHAR(50)     NOT NULL COMMENT '이메일',
@@ -12,4 +12,4 @@ CREATE TABLE Member (
 ) COMMENT = '회원';
 
 -- DROP
-DROP TABLE IF EXISTS Member;
+DROP TABLE IF EXISTS member;

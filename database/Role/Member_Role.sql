@@ -1,8 +1,8 @@
 -- DROP
-DROP TABLE IF EXISTS Member_Role;
+DROP TABLE IF EXISTS member_role;
 
 -- CREATE
-CREATE TABLE Member_Role (
+CREATE TABLE member_role (
   id          BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '고유번호',
   member_id   BIGINT UNSIGNED NOT NULL COMMENT '회원 고유번호',
   role_id     BIGINT UNSIGNED NOT NULL COMMENT '권한 고유번호',
@@ -10,6 +10,6 @@ CREATE TABLE Member_Role (
   updated_at   DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '수정 시간',
   deleted_at   DATETIME        COMMENT '삭제 시간',
   PRIMARY KEY (id),
-  FOREIGN KEY (role_id) REFERENCES Role(id) ON DELETE CASCADE
+  FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE CASCADE
 ) COMMENT = '회원 권한 브릿지';
 
