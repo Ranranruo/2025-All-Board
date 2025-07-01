@@ -96,6 +96,9 @@ Spring Boot 기반의 웹 애플리케이션입니다.
   - `Member service init`
   - `msa 기본 환경 설정 완료`
 
+- **2025-07-01**
+  - `msa 나누고 공통 코드 jitPack으로 외부 라이브러리화`
+
 ## ✨ Features
 
 - ~~`JavaMailSender를 활용한 이메일 인증 sign-up 기능`~~
