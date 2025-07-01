@@ -1,5 +1,4 @@
-//package com.allboard.member.Model;
-//
-//public class Member extends Entity {
-//
-//}
+package com.allboard.member.Model;
+
+public class Member {
+}
