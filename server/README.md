@@ -76,6 +76,8 @@ Spring Boot 기반의 웹 애플리케이션입니다.
   - `email, phone 인증관련 코드를 하나의 interface로 추상화 하기 위해 전략패턴 도입 시도 -> (실패) 전략패턴을 하기엔 폴더구조가 맞지 않는다. Context파일을 두는곳이 에매함 보통 Common에 파일을 Service레이어에서 사용하애하는데 반대가 되버림`
   - `identifier 삭제 -> 비지니스 로직이라고 할것도 없고 구조만 더 복잡해 지는것 같다.`
   - `이메일 인증 서버 개발 완료`
+  - `Info 디렉토리 model -> vo 폴더명 변경 model은 포함되는 범위가 너무 넓고 Info가 인증에 대한 값을 나타내는 class이기 때문에 vo가 적절한것 같다.`
+  - `member-service exists member 확인 기능 개발 완료`
 
 ## ✨ Features
 
