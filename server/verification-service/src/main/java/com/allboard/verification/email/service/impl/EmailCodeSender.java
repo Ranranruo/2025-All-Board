@@ -1,28 +1,28 @@
-package com.allboard.verification.email.service;
+package com.allboard.verification.email.service.impl;
 
-import com.allboard.verification.common.model.Identifier;
 import com.allboard.verification.common.model.Info;
 import com.allboard.verification.common.service.CodeSender;
-import com.allboard.verification.common.util.MailUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public final class EmailCodeSender implements CodeSender {
-    private final MailUtil mailUtil;
+    private final JavaMailSender mailSender;
 
     @Override
     public void send(Info info) {
-        Identifier identifier = info.getIdentifier();
+        SimpleMailMessage message = new SimpleMailMessage();
 
         String code = info.getCode();
-        String email = identifier.getValue();
+        String email = info.getIdentifier();
 
-        mailUtil.sendText(
-                email,
-                "Verification for sign-up",
-                "your code: " + code
-        );
+        message.setTo(email);
+        message.setSubject("Verification for sign-up");
+        message.setText("your code: " + code);
+
+        mailSender.send(message);
     }
 }

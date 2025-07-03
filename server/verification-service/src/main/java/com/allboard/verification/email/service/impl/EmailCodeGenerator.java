@@ -1,4 +1,4 @@
-package com.allboard.verification.email.service;
+package com.allboard.verification.email.service.impl;
 
 import com.allboard.verification.common.service.CodeGenerator;
 import com.allboard.verification.common.util.RandomStringGenerator;

@@ -1,6 +1,6 @@
-package com.allboard.verification.common.domain;
+package com.allboard.verification.common.model;
 
 public interface Info {
-    public Identifier getIdentifier();
+    public String getIdentifier();
     public String getCode();
 }

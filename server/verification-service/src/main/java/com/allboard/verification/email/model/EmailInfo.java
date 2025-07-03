@@ -1,16 +1,19 @@
-package com.allboard.verification.email.domain;
+package com.allboard.verification.email.model;
 
-import com.allboard.verification.common.domain.Identifier;
-import com.allboard.verification.common.domain.Info;
+import com.allboard.verification.common.model.Info;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 @AllArgsConstructor
+@Getter
+@Setter
 public final class EmailInfo implements Info {
-    Identifier identifier;
+    String email;
     String code;
     @Override
-    public Identifier getIdentifier() {
-        return this.identifier;
+    public String getIdentifier() {
+        return this.email;
     }
 
     @Override

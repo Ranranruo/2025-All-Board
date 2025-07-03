@@ -1,17 +1,15 @@
-package com.allboard.verification.email.service;
+package com.allboard.verification.email.service.impl;
 
-import com.allboard.verification.common.model.Identifier;
 import com.allboard.verification.common.model.Info;
 import com.allboard.verification.common.service.InfoAuthenticator;
+import org.springframework.stereotype.Component;
 
+@Component
 public final class EmailInfoAuthenticator implements InfoAuthenticator {
     @Override
     public boolean authenticate(Info inputInfo, Info issuedInfo) {
-        Identifier inputIdentifier = inputInfo.getIdentifier();
-        Identifier issuedIdentifier = issuedInfo.getIdentifier();
-
-        String inputEmail = inputIdentifier.getValue();
-        String issuedEmail = issuedIdentifier.getValue();
+        String inputEmail = inputInfo.getIdentifier();
+        String issuedEmail = issuedInfo.getIdentifier();
 
         String inputCode = inputInfo.getCode();
         String issuedCode = issuedInfo.getCode();

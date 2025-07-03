@@ -1,29 +1,34 @@
-package com.allboard.verification.email.repository.impl;
+package com.allboard.verification.email.store;
 
 import com.allboard.verification.common.model.Info;
 import com.allboard.verification.common.service.InfoStore;
-import jakarta.servlet.http.HttpSession;
+import com.allboard.verification.common.util.RedisUtil;
+import com.allboard.verification.email.model.EmailInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public final class EmailInfoStore implements InfoStore {
-    private final HttpSession session;
-
-
+    private final String KEY_PREFIX = "verification.email.";
+    private final RedisUtil redisUtil;
     @Override
-    public Info get() {
-        return (Info) session.getAttribute("verificationInfo");
+    public Info get(String identifier) {
+        String email = identifier;
+        String code = redisUtil.get(KEY_PREFIX+email);
+        Info info = new EmailInfo(identifier, code);
+        return info;
     }
 
     @Override
     public void set(Info info) {
-        session.setAttribute("verificationInfo", info);
+        String email = info.getIdentifier();
+        String code = info.getCode();
+        redisUtil.set(KEY_PREFIX+email, code);
     }
 
     @Override
-    public void delete() {
-        session.removeAttribute("verificationInfo");
+    public void delete(String email ) {
+        redisUtil.delete(KEY_PREFIX+email);
     }
 }

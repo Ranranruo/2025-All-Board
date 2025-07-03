@@ -1,10 +1,10 @@
-package com.allboard.verification.dto;
+package com.allboard.verification.email.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class EmailVerificationDTO {
+public final class EmailVerificationDTO {
     public String email;
 }

@@ -1,4 +1,4 @@
-package com.allboard.verification.common.service.generator;
+package com.allboard.verification.common.service;
 
 public interface CodeGenerator {
     String generate();
