@@ -20,34 +20,6 @@ Spring Boot 기반의 웹 애플리케이션입니다.
 
 ## 📁 Folder Structure
 ```
-
- main/
-├── java/
-│   └── sms/
-│       └── allBoard/
-│           ├── AllBoardApplication.java
-│           ├── Auth/
-│           │   ├── DTO/
-│           │   ├── Exception/
-│           │   ├── Service/
-│           │   ├── AuthController.java
-│           │   ├── AuthExceptionHandler.java
-│           │   └── AuthValidator.java
-│           └── Common/
-│               ├── Config/
-│               ├── Domain/
-│               │   ├── Member/
-│               │   ├── MemberRoleBridge/
-│               │   └── Role/
-│               ├── Enum/
-│               ├── Interface/
-│               ├── Security/
-│               ├── Service/
-│               │   └── Auth/
-│               │       └── Verification/
-│               └── Util/
-└── resources/
-       └── application.properties
 ```
 
 ---
@@ -101,6 +73,9 @@ Spring Boot 기반의 웹 애플리케이션입니다.
 
 - **2025-07-03**
   - `패키지명 lowercase로 변경 다른 기본 패키지는 다 lower case이라 통일성있는것 같음`
+  - `email, phone 인증관련 코드를 하나의 interface로 추상화 하기 위해 전략패턴 도입 시도 -> (실패) 전략패턴을 하기엔 폴더구조가 맞지 않는다. Context파일을 두는곳이 에매함 보통 Common에 파일을 Service레이어에서 사용하애하는데 반대가 되버림`
+  - `identifier 삭제 -> 비지니스 로직이라고 할것도 없고 구조만 더 복잡해 지는것 같다.`
+  - `이메일 인증 서버 개발 완료`
 
 ## ✨ Features
 
