@@ -99,6 +99,9 @@ Spring Boot 기반의 웹 애플리케이션입니다.
 - **2025-07-01**
   - `msa 나누고 공통 코드 jitPack으로 외부 라이브러리화`
 
+- **2025-07-03**
+  - `패키지명 lowercase로 변경 다른 기본 패키지는 다 lower case이라 통일성있는것 같음`
+
 ## ✨ Features
 
 - ~~`JavaMailSender를 활용한 이메일 인증 sign-up 기능`~~
