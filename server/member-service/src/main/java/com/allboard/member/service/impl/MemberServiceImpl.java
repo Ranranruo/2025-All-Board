@@ -1,8 +1,9 @@
-package com.allboard.member.service;
+package com.allboard.member.service.impl;
 
 import com.allboard.member.dto.MemberDTO;
 import com.allboard.member.model.Member;
 import com.allboard.member.repository.MemberRepository;
+import com.allboard.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -18,5 +19,15 @@ public class MemberServiceImpl implements MemberService {
         member.setDisplayName(memberDTO.getDisplayName());
 
         memberRepository.save(member);
+    }
+
+    @Override
+    public boolean existsMemberByUsername(String username) {
+        return memberRepository.existsMemberByUsername(username);
+    }
+
+    @Override
+    public boolean existsMemberByEmail(String email) {
+        return memberRepository.existsMemberByEmail(email);
     }
 }
