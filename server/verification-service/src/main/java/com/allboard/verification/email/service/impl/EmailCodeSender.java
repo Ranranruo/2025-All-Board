@@ -1,6 +1,6 @@
 package com.allboard.verification.email.service.impl;
 
-import com.allboard.verification.common.model.Info;
+import com.allboard.verification.common.vo.Info;
 import com.allboard.verification.common.service.CodeSender;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;

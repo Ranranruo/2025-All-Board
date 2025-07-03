@@ -1,4 +1,4 @@
-package com.allboard.verification.common.model;
+package com.allboard.verification.common.vo;
 
 public interface Info {
     public String getIdentifier();

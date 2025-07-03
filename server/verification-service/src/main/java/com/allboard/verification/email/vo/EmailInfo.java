@@ -1,6 +1,6 @@
-package com.allboard.verification.email.model;
+package com.allboard.verification.email.vo;
 
-import com.allboard.verification.common.model.Info;
+import com.allboard.verification.common.vo.Info;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

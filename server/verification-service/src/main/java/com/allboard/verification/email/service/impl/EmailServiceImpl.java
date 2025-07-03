@@ -1,11 +1,11 @@
 package com.allboard.verification.email.service.impl;
 
-import com.allboard.verification.common.model.Info;
+import com.allboard.verification.common.vo.Info;
 import com.allboard.verification.common.service.CodeGenerator;
 import com.allboard.verification.common.service.CodeSender;
 import com.allboard.verification.common.service.InfoAuthenticator;
 import com.allboard.verification.common.service.InfoStore;
-import com.allboard.verification.email.model.EmailInfo;
+import com.allboard.verification.email.vo.EmailInfo;
 import com.allboard.verification.email.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

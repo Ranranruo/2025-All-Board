@@ -1,9 +1,9 @@
 package com.allboard.verification.email.store;
 
-import com.allboard.verification.common.model.Info;
+import com.allboard.verification.common.vo.Info;
 import com.allboard.verification.common.service.InfoStore;
 import com.allboard.verification.common.util.RedisUtil;
-import com.allboard.verification.email.model.EmailInfo;
+import com.allboard.verification.email.vo.EmailInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

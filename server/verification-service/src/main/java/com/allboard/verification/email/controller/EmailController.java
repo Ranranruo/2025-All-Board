@@ -1,6 +1,6 @@
 package com.allboard.verification.email.controller;
 
-import com.allboard.verification.email.model.EmailInfo;
+import com.allboard.verification.email.vo.EmailInfo;
 import com.allboard.verification.email.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
