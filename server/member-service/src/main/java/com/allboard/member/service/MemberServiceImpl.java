@@ -1,8 +1,8 @@
-package com.allboard.member.Service;
+package com.allboard.member.service;
 
-import com.allboard.member.DTO.MemberDTO;
-import com.allboard.member.Model.Member;
-import com.allboard.member.Repository.MemberRepository;
+import com.allboard.member.dto.MemberDTO;
+import com.allboard.member.model.Member;
+import com.allboard.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.allboard.role.Controller;
+package com.allboard.role.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,4 +1,4 @@
-package com.allboard.verification.DTO;
+package com.allboard.verification.dto;
 
 import lombok.Getter;
 import lombok.Setter;

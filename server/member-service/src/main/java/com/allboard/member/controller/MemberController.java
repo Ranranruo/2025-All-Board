@@ -1,9 +1,7 @@
-package com.allboard.member.Controller;
+package com.allboard.member.controller;
 
-import com.allboard.member.DTO.MemberDTO;
-import com.allboard.member.Model.Member;
-import com.allboard.member.Repository.MemberRepository;
-import com.allboard.member.Service.MemberService;
+import com.allboard.member.dto.MemberDTO;
+import com.allboard.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

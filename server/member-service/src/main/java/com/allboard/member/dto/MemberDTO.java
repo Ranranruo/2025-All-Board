@@ -1,6 +1,5 @@
-package com.allboard.member.DTO;
+package com.allboard.member.dto;
 
-import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 

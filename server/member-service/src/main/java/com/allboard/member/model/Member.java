@@ -1,4 +1,4 @@
-package com.allboard.member.Model;
+package com.allboard.member.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

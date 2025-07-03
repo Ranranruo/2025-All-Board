@@ -1,4 +1,4 @@
-package com.allboard.role.Model;
+package com.allboard.role.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

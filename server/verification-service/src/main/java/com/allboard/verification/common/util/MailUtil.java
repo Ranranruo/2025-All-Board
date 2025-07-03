@@ -1,4 +1,4 @@
-package com.allboard.verification.Util;
+package com.allboard.verification.common.util;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;

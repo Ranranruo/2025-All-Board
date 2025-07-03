@@ -1,8 +1,7 @@
-package com.allboard.verification.Consumer;
+package com.allboard.verification.consumer;
 
-import com.allboard.verification.DTO.EmailVerificationDTO;
+import com.allboard.verification.dto.EmailVerificationDTO;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
