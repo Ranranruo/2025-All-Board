@@ -24,12 +24,4 @@ public class MemberController {
 
         return responseBody;
     }
-
-
-    @PostMapping("/")
-    public void insert(
-            @RequestBody MemberDTO memberDTO
-    ) {
-        memberService.save(memberDTO);
-    }
 }
