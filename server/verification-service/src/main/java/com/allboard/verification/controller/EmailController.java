@@ -1,7 +1,7 @@
-package com.allboard.verification.email.controller;
+package com.allboard.verification.controller;
 
-import com.allboard.verification.email.vo.EmailInfo;
-import com.allboard.verification.email.service.EmailService;
+import com.allboard.verification.vo.EmailInfo;
+import com.allboard.verification.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/verification/email")
+@RequestMapping("/verification/email`")
 @RequiredArgsConstructor
 public class EmailController {
     private final EmailService emailService;
     @PostMapping
-    public boolean sendEmail(
+    public boolean verificationEmail(
             @RequestBody(required = false) EmailInfo info
     ) {
         if(info == null || info.getIdentifier() == null){

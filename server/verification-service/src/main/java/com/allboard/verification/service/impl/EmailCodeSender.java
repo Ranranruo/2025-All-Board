@@ -1,4 +1,4 @@
-package com.allboard.verification.email.service.impl;
+package com.allboard.verification.service.impl;
 
 import com.allboard.verification.common.vo.Info;
 import com.allboard.verification.common.service.CodeSender;

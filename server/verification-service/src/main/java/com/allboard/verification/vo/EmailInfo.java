@@ -1,4 +1,4 @@
-package com.allboard.verification.email.vo;
+package com.allboard.verification.vo;
 
 import com.allboard.verification.common.vo.Info;
 import lombok.AllArgsConstructor;

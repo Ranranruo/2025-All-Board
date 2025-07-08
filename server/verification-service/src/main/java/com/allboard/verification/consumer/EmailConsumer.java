@@ -1,7 +1,7 @@
-package com.allboard.verification.email.consumer;
+package com.allboard.verification.consumer;
 
-import com.allboard.verification.email.dto.EmailCodeRequestDTO;
-import com.allboard.verification.email.service.EmailService;
+import com.allboard.verification.dto.EmailCodeRequestDTO;
+import com.allboard.verification.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
