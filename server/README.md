@@ -68,6 +68,8 @@ Spring Boot 기반의 웹 애플리케이션입니다.
   - `Member service init`
   - `msa 기본 환경 설정 완료`
 
+### 2025-07
+
 - **2025-07-01**
   - `msa 나누고 공통 코드 jitPack으로 외부 라이브러리화`
 
@@ -84,6 +86,10 @@ Spring Boot 기반의 웹 애플리케이션입니다.
   - ```회원가입을 구현할때 보통 member-service, role-service를 auth-service에 묶어서 auth-service에서 비지니스 로직을 처리하고 member-service, role-service는 데이터 관련 명령만 진행하는데 게시판 서비스 같은거는 바로 post-service로 접근해서 post-service->comment-service 이런식으로 감 뭔가 통일성이 없는것 같다. 이럴꺼면 게시판 서비스를 포함한 모든 서비스도 auth-service처럼 비지니스 로직을 수행하는 서비스와 데이터를 관리하는 서비스로 나누어서 개발하는게 더 통일성있지 않을까?```
   - ```우아한테크의 마이크로서비스 여행기 영상을 보니까 이건 msa 구조의 문제가 아니라 도메인을 어떻게 나눌것인가에 대한 문제 인것 같다. 무작정 member-service, role-service 이렇게 나누는것이 아니라 회원이라는 도메인 관점에서 봐서 member,role,verification 이렇게 하나의 auth-service로 묶는게 맞는것 같다. 내가 너무 나눌 생각만 한것 같다.```
   - `member-service, role-service, verification-service 모두 '회원/인증'이라는 도메인 관점에서 봤을때 묶는게 좋을것 같아 auth-service로 통합`
+
+- **2025-07-09**
+  - `이메일 인증 코드 전송 로직 rabbitMq로 비동기화 전환`
+  - `회원가입 로직 msa 전환 완료 (+RabbitMQ)`
 
 ## ✨ Features
 
