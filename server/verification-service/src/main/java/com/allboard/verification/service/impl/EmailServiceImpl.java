@@ -3,7 +3,7 @@ package com.allboard.verification.service.impl;
 import com.allboard.verification.common.vo.Info;
 import com.allboard.verification.common.service.CodeGenerator;
 import com.allboard.verification.common.service.CodeSender;
-import com.allboard.verification.common.service.InfoAuthenticator;
+import com.allboard.verification.common.service.InfoVerifier;
 import com.allboard.verification.common.service.InfoStore;
 import com.allboard.verification.vo.EmailInfo;
 import com.allboard.verification.service.EmailService;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class EmailServiceImpl implements EmailService {
     private final CodeGenerator codeGenerator;
     private final CodeSender codeSender;
-    private final InfoAuthenticator infoAuthenticator;
+    private final InfoVerifier infoVerifier;
     private final InfoStore infoStore;
 
     @Override
@@ -35,6 +35,6 @@ public class EmailServiceImpl implements EmailService {
             return false;
         }
 
-        return infoAuthenticator.authenticate(isssuedInfo, inputInfo);
+        return infoVerifier.verify(isssuedInfo, inputInfo);
     }
 }

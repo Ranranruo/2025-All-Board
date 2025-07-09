@@ -1,20 +1,25 @@
 package com.allboard.auth.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
+
+import java.time.LocalDateTime;
 
 @Entity
+@Getter @Setter
 @Table(name = "member")
-@Getter
-@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@SQLDelete(sql = "UPDATE member SET deleted_at = CURRENT_TIMESTAMP() WHERE id = ?")
+@SQLRestriction("deleted_at IS NULL")
 public class Member {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "username")
     private String username;
@@ -27,4 +32,7 @@ public class Member {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
 }

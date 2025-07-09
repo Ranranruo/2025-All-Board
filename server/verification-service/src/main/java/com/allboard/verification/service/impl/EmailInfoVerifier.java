@@ -1,13 +1,13 @@
 package com.allboard.verification.service.impl;
 
 import com.allboard.verification.common.vo.Info;
-import com.allboard.verification.common.service.InfoAuthenticator;
+import com.allboard.verification.common.service.InfoVerifier;
 import org.springframework.stereotype.Component;
 
 @Component
-public final class EmailInfoAuthenticator implements InfoAuthenticator {
+public final class EmailInfoVerifier implements InfoVerifier {
     @Override
-    public boolean authenticate(Info inputInfo, Info issuedInfo) {
+    public boolean verify(Info inputInfo, Info issuedInfo) {
         String inputEmail = inputInfo.getIdentifier();
         String issuedEmail = issuedInfo.getIdentifier();
 

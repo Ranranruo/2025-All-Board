@@ -1,18 +1,25 @@
 package com.allboard.auth.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.SQLDelete;
 
-@Entity(name = "role")
+@Entity
+@Table(name = "role")
+@Getter @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@SQLDelete(sql = "UPDATE role SET deleted_at = CURRENT_TIMESTAMP() WHERE id = ?")
 public class Role {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "member_id")
-    private Long memberId;
+    @Column(name = "name", nullable = false, length = 30)
+    private String name;
 
-    @Column(name = "role_id")
-    private Long roleId;
+    @Column(name = "description")
+    private String description;
 }
