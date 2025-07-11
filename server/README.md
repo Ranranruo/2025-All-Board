@@ -91,6 +91,10 @@ Spring Boot 기반의 웹 애플리케이션입니다.
   - `이메일 인증 코드 전송 로직 rabbitMq로 비동기화 전환`
   - `회원가입 로직 msa 전환 완료 (+RabbitMQ)`
 
+- **2025-07-10**
+  - `gateway 필터 생성`
+  - ``
+
 ## ✨ Features
 
 - ~~`JavaMailSender를 활용한 이메일 인증 sign-up 기능`~~

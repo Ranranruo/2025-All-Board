@@ -1,10 +1,8 @@
 package com.allboard.auth.controller;
 
 import com.allboard.auth.AuthValidator;
-import com.allboard.auth.dto.EmailVerificationCodeRequestDTO;
-import com.allboard.auth.dto.EmailVerificationCodeResponseDTO;
-import com.allboard.auth.dto.SignUpRequestDTO;
-import com.allboard.auth.dto.SignUpResponseDTO;
+import com.allboard.auth.dto.*;
+import com.allboard.auth.exception.SignInException;
 import com.allboard.auth.exception.SignUpException;
 import com.allboard.auth.exception.VerificationException;
 import com.allboard.auth.feign.verification.VerificationClient;
@@ -56,6 +54,22 @@ public class AuthController {
         return ResponseEntity
                 .status(ResponseStatus.SUCCESS.getCode())
                 .body(new ApiResponse<EmailVerificationCodeResponseDTO>(true, ResponseStatus.SUCCESS, responseBody));
+    }
+
+    @PostMapping("/sign-in")
+    public ResponseEntity<ApiResponse<SignInResponseDTO>> signIn(
+            @RequestBody(required = false) SignInRequestDTO requestBody
+    ) {
+        SignInResponseDTO responseBody = new SignInResponseDTO();
+
+        // null check
+        if(requestBody == null) {
+            responseBody.setUsername(FieldStatus.EMPTY);
+            responseBody.setPassword(FieldStatus.EMPTY);
+            throw new SignInException(ResponseStatus.BAD_REQUEST, responseBody);
+        }
+
+        return null;
     }
 
     @PostMapping("/sign-up")
